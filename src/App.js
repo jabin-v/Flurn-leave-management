@@ -7,9 +7,13 @@ import Login from './features/auth/Login';
 import DashLayout from './components/dashLayout/DashLayout';
 import Leaves from './components/leaves/Leaves';
 import NewUserForm from './features/user/NewUser';
-
+import LeavesList from './features/leaves/LeavesList';
+import { fetchLeaves } from './features/leaves/leavesSlice';
+import { store } from './app/store';
 
 function App() {
+
+  // store.dispatch(fetchLeaves());
   return (
     <Routes>
       <Route path='/' element={<Layout/>}>
@@ -17,11 +21,16 @@ function App() {
         <Route path='login' element={<Login/>}/>
 
         <Route path="dash" element={<DashLayout />}>
-          <Route index element={<Leaves/>}/>
+          <Route index element={<LeavesList/>}/>
 
           <Route path="users">
               <Route path="new" element={<NewUserForm />} />
-            </Route>
+          </Route>
+
+          <Route path="leaves">
+              <Route index  element={<NewUserForm />} />
+              <Route path='new'  element={<NewUserForm />} />
+          </Route>
 
         </Route>
         
