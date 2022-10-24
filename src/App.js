@@ -6,6 +6,7 @@ import Public from './components/public/Public';
 import Login from './features/auth/Login';
 import DashLayout from './components/dashLayout/DashLayout';
 import Leaves from './components/leaves/Leaves';
+import NewUserForm from './features/user/NewUser';
 
 
 function App() {
@@ -17,6 +18,10 @@ function App() {
 
         <Route path="dash" element={<DashLayout />}>
           <Route index element={<Leaves/>}/>
+
+          <Route path="users">
+              <Route path="new" element={<NewUserForm />} />
+            </Route>
 
         </Route>
         

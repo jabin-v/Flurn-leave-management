@@ -63,6 +63,13 @@
   visibility: hidden;
 }
 
+.btn{
+  padding:10px 5px;
+  cursor:pointer;
+  color:var(----LINK-COLOR);
+  border-radius:5px;
+}
+
 /* || GENERAL STYLES */
 
 body {

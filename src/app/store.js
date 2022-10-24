@@ -1,9 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { LeavesApi } from './api/apiSlice';
+import { apiSlice } from './api/apiSlice';
+import authReducer from '../features/auth/authSlice'
 
 export const store = configureStore({
     reducer: {
-        [LeavesApi.reducerPath]: LeavesApi.reducer,
+        [apiSlice.reducerPath]: apiSlice.reducer,
+        auth: authReducer,
     },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(LeavesApi.middleware),
+    middleware: getDefaultMiddleware =>
+    getDefaultMiddleware().concat(apiSlice.middleware),
+    devTools: true
 })
