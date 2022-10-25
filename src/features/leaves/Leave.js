@@ -28,7 +28,7 @@ const days=getDaysDiffBetweenDates(new Date(data.start_date), new Date(data.end_
 
         // const updated = new Date(note.updatedAt).toLocaleString('en-US', { day: 'numeric', month: 'long' })
 
-        const handleEdit = () => navigate(`/dash/dash/${leaveId}`)
+        const handleEdit = () => navigate(`/dash/leave/${leaveId}`)
 
         return (
             <tr className="table__row">

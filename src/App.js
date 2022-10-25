@@ -10,6 +10,8 @@ import NewUserForm from './features/user/NewUser';
 import LeavesList from './features/leaves/LeavesList';
 import { fetchLeaves } from './features/leaves/leavesSlice';
 import { store } from './app/store';
+import NewLeave from './features/leaves/NewLeave';
+import EditLeave from './features/leaves/EditLeave';
 
 function App() {
 
@@ -22,6 +24,8 @@ function App() {
 
         <Route path="dash" element={<DashLayout />}>
           <Route index element={<LeavesList/>}/>
+          <Route path='leave/new' element={<NewLeave/>}/>
+          <Route path='leave/:leaveId' element={<EditLeave/>}/>
 
           <Route path="users">
               <Route path="new" element={<NewUserForm />} />

@@ -4,6 +4,7 @@ import { fetchLeaves, fetchLeavesWithFilter, selectAllLeaves } from "./leavesSli
 import Leave from "./Leave"
 import DateRangePickerComp from "../../components/dateRangePicker/DateRangePickerComp";
 import { addDays } from 'date-fns'
+import { Link } from "react-router-dom";
 const LeavesList = () => {
   const dispatch = useDispatch();
 
@@ -115,13 +116,14 @@ return (
     <span className="btn-filter green" onClick={()=>applyFilter("6 month")}>Last 6 Month</span>
     <span className="btn-filter" onClick={()=>applyFilter("1 year")}>Last 1 Year</span>
     <span className="btn-filter green" onClick={()=>applyFilter("reset")}>Reset</span>
+    <Link to="/dash/leave/new" className="btn-filter green" onClick={()=>applyFilter("reset")}>Apply for a new Leave</Link>
     
 
 
 </div>
 </div>
     
-    {content}
+    {!leaves ?"You are tooo commited to your job go and enjoy sometime with your fam!!" :content}
 
     </>)
 };
