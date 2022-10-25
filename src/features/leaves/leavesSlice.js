@@ -1,5 +1,6 @@
 import { createSlice,createAsyncThunk } from '@reduxjs/toolkit';
 import axios from "axios";
+import format from 'date-fns/format'
 
 
 const BASE_URL = 'https://dkgicggupnrxldwvkeft.supabase.co/rest/v1/leaves';
@@ -16,6 +17,27 @@ export const fetchLeaves = createAsyncThunk('leaves/fetchLeaves', async (arg, { 
     const response = await axios.get(`${BASE_URL}?select=*`,config);
 
     return response.data
+})
+export const fetchLeavesWithFilter = createAsyncThunk('leaves/fetchLeavesWithFilter', async (data, { getState, rejectWithValue })=> {
+
+    const startDate=format(data[0].startDate,"yyyy-MM-dd");
+    const endDate=format(data[0].endDate,"yyyy-MM-dd");
+    const { auth } = getState();    
+    const config = {
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+          apikey:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRrZ2ljZ2d1cG5yeGxkd3ZrZWZ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjYwMDI4ODMsImV4cCI6MTk4MTU3ODg4M30.BLLinQ9VEK8_T-JE22WOidlJs_0TFhOb1n3zkSVc7eg"
+        },
+      };
+
+
+    const response = await axios.get(`${BASE_URL}?start_date=gt.${startDate}&end_date=lt.${endDate}&select=*`,config);
+
+    console.log(response)
+
+    return response.data
+
+    
 })
 
 
@@ -84,6 +106,27 @@ const leavesSlice = createSlice({
               })
 
               .addCase(fetchLeaves.rejected, (state, action) => {
+                state.status = 'failed'
+                state.error = action.error.message
+              })
+              .addCase(fetchLeavesWithFilter.pending,(state,action)=>{
+                state.status = 'loading'
+              })
+              .addCase(fetchLeavesWithFilter.fulfilled,(state,action)=>{
+                state.status = 'succeeded'
+                state.data = action.payload
+
+                const loadedPosts = action.payload.sort(function(a, b) {
+                    var c = new Date(a.end_date);
+                    var d = new Date();
+                    return d-c;
+                });
+
+                state.data = loadedPosts
+
+              })
+
+              .addCase(fetchLeavesWithFilter.rejected, (state, action) => {
                 state.status = 'failed'
                 state.error = action.error.message
               })

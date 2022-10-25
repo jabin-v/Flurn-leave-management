@@ -1,10 +1,31 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchLeaves, selectAllLeaves } from "./leavesSlice";
+import { fetchLeaves, fetchLeavesWithFilter, selectAllLeaves } from "./leavesSlice";
 import Leave from "./Leave"
-
+import DateRangePickerComp from "../../components/dateRangePicker/DateRangePickerComp";
+import { addDays } from 'date-fns'
 const LeavesList = () => {
   const dispatch = useDispatch();
+
+
+  //before ceratain date
+
+
+  function addMonths(date, months) {
+    date.setMonth(date.getMonth() + months);
+    return date;
+  }
+
+ 
+ 
+ // date state
+ const [range, setRange] = useState([
+  {
+    startDate: new Date(),
+    endDate: addDays(new Date(), 7),
+    key: 'selection'
+  }
+])
 
   let isCancelled = false;
   useEffect(() => {
@@ -19,6 +40,46 @@ const LeavesList = () => {
 
 
   const leaves = useSelector(selectAllLeaves);
+
+  const applyFilter=(filter)=>{
+
+    if(filter==="6 month"){
+
+      console.log(filter)
+      
+      const data=[{
+        startDate:addMonths(new Date(), -6),
+        endDate:new Date()
+      }];
+
+      dispatch(fetchLeavesWithFilter(data))
+
+
+    }
+
+    else if(filter === "1 year"){
+
+      console.log(filter)
+      
+      const data=[{
+        startDate:addMonths(new Date(), -12),
+        endDate:new Date()
+      }];
+
+      dispatch(fetchLeavesWithFilter(data))
+
+    }
+    else if (filter === "reset"){
+
+      dispatch(fetchLeaves());
+
+    }
+       
+    else dispatch(fetchLeavesWithFilter(range))
+
+  }
+
+ 
 
 
   const tableContent = leaves?.map(leave => <Leave key={leave.id} leaveId={leave.id} data={leave} />)
@@ -41,7 +102,28 @@ const LeavesList = () => {
     </table>
 )
 
-return content
+return (
+<>
+
+<div className="filter-margin flex">
+<p>Filter</p>
+<div>
+<DateRangePickerComp range={range} setRange={setRange}/>
+</div>
+<div >
+    <span className="btn-filter" onClick={applyFilter}>FIlter</span>
+    <span className="btn-filter green" onClick={()=>applyFilter("6 month")}>Last 6 Month</span>
+    <span className="btn-filter" onClick={()=>applyFilter("1 year")}>Last 1 Year</span>
+    <span className="btn-filter green" onClick={()=>applyFilter("reset")}>Reset</span>
+    
+
+
+</div>
+</div>
+    
+    {content}
+
+    </>)
 };
 
 export default LeavesList;

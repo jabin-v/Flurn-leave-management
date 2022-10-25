@@ -111,6 +111,51 @@ a:focus-visible {
 
 /* || PAGES */
 
+input.inputBox {
+  font-size: 22px;
+  padding: 5px 8px 4px 8px;
+  border-radius: 3px;
+  border: 1px solid #666;
+}
+
+.calendarWrap {
+  display: inline-block;
+  position: relative;
+}
+
+.calendarElement {
+  position: absolute;
+  left: 150%;
+  transform: translateX(-50%);
+  top: 50px;
+  border: 1px solid #ccc;
+  z-index: 999;
+}
+.filter-margin{
+  margin-bottom:10px;
+}
+
+.flex{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.btn-filter{
+  font-size:15px;
+  padding:10px;
+  background-color:red;
+  margin-left:15px;
+  border-radius:5px;
+  cursor:pointer;
+}
+
+.green{
+
+  background-color:green;
+
+}
+
 .public,
 .welcome {
   display: flex;
