@@ -139,7 +139,18 @@ const leavesSlice = createSlice({
               })
 
               .addCase(addNewLeave.fulfilled, (state, action) => {
-                state.data.push(action.payload[0])
+
+                const tempArray=[...state.data,action.payload[0]];
+
+
+
+
+                const loadedPosts = tempArray.sort(function(a, b) {
+                  var c = new Date(a.end_date);
+                  var d = new Date();
+                  return d-c;
+              });
+              state.data = loadedPosts;
 
               })
 
@@ -153,9 +164,10 @@ const leavesSlice = createSlice({
                     return;
                 }
                 const { id } = action.payload[0];
+                console.log(id)
                 const leaves = state.data.filter(leave => leave.id !==Number(id));
 
-                const data = [...leaves, action.payload];
+                const data = [...leaves, action.payload[0]];
 
                 const loadedPosts = data.sort(function(a, b) {
                   var c = new Date(a.end_date);
