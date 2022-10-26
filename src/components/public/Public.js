@@ -17,9 +17,9 @@ const Public = () => {
                 <br />
                 <p>Owner: Flurn</p>
             </main>
-            <footer>
+            <footer style={{display:"flex",gap:"10px"}}>
                 <Link to="/login"> Login</Link>
-                <Link to="/dash/users/new">Regiter</Link>
+                <Link to="/dash/users/new">Register</Link>
             </footer>
         </section>
 

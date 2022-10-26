@@ -1,14 +1,16 @@
-import { useState, useEffect } from "react"
-import { useRegisterMutation } from "./userApiSlice"
+import { useEffect, useState } from "react"
+import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSave } from "@fortawesome/free-solid-svg-icons"
+import { setCredentials } from "../auth/authSlice"
+import { useRegisterMutation } from "./userApiSlice"
+
 
 
 const USER_REGEX = /^[A-z]{3,20}$/
 const PWD_REGEX = /^[A-z0-9!@#$%]{4,12}$/
 
 const NewUserForm = () => {
+    const dispatch=useDispatch();
 
     const [addNewUser, {
         isLoading,
@@ -38,7 +40,7 @@ const NewUserForm = () => {
             setUsername('')
             setPassword('')
             setEmail("")
-            navigate('/dash')
+            // navigate('/dash')
         }
     }, [isSuccess, navigate])
 
@@ -53,7 +55,12 @@ const NewUserForm = () => {
         e.preventDefault()
         if (canSave) {
            const data= await addNewUser({ name:username, password,email });
-           console.log(data)
+           const access_token=data.access_token
+             dispatch(setCredentials({ access_token }))
+             setEmail('')
+             setPassword('')
+             setUsername('')
+             navigate("/login")
         }
     }
 
@@ -66,7 +73,7 @@ const NewUserForm = () => {
 
     const content = (
         <>
-            <p className={errClass}>{error?.data?.message}</p>
+            <p className={errClass}>{error?.data?.msg}</p>
 
             <form className="form" onSubmit={onSaveUserClicked}>
                 <div className="form__title-row">
