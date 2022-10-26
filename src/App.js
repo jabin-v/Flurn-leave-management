@@ -1,19 +1,15 @@
 
+import { Route, Routes } from "react-router-dom";
 import './App.css';
-import {Routes,Route} from "react-router-dom"
+import Calender from './components/calender/Calender';
+import DashLayout from './components/dashLayout/DashLayout';
 import Layout from './components/layout/Layout';
 import Public from './components/public/Public';
 import Login from './features/auth/Login';
-import DashLayout from './components/dashLayout/DashLayout';
-import Leaves from './components/leaves/Leaves';
-import NewUserForm from './features/user/NewUser';
-import LeavesList from './features/leaves/LeavesList';
-import { fetchLeaves } from './features/leaves/leavesSlice';
-import { store } from './app/store';
-import NewLeave from './features/leaves/NewLeave';
 import EditLeave from './features/leaves/EditLeave';
-import { Calendar } from 'react-date-range';
-import Calender from './components/calender/Calender';
+import LeavesList from './features/leaves/LeavesList';
+import NewLeave from './features/leaves/NewLeave';
+import NewUserForm from './features/user/NewUser';
 
 function App() {
 

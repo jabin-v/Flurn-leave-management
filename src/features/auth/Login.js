@@ -28,7 +28,7 @@ const  Login = () => {
 
   useEffect(() => {
     setErrMsg('');
-}, [name, password,email])
+}, [password,email])
 
 
 
@@ -37,7 +37,7 @@ const  Login = () => {
     const handleSubmit = async (e) => {
       e.preventDefault()
       try {
-          const data = await login({ email, password,name }).unwrap();
+          const data = await login({ email, password}).unwrap();
 
           const access_token=data.access_token
         

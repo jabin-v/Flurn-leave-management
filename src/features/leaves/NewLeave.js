@@ -16,17 +16,6 @@ const NewLeave = () => {
     const [addRequestStatus, setAddRequestStatus] = useState('idle')
 
     const dispatch=useDispatch()
-   
-
-    // useEffect(() => {
-    //     if (isSuccess) {
-    //         setTitle('')
-    //         setText('')
-    //         setUserId('')
-    //         navigate('/dash/notes')
-    //     }
-    // }, [isSuccess, navigate])
-
     const onStartDateChanged = e =>setStartDate(e.target.value)
     const onEndDateChanged = e => setEndDate(e.target.value)
     const onTextChanged = e => setReason(e.target.value)
@@ -42,10 +31,6 @@ const NewLeave = () => {
                 try {
                     setAddRequestStatus('pending')
                     dispatch(addNewLeave({start_date:startDate,end_date:endDate,reason })).unwrap()
-    
-                    // setTitle('')
-                    // setContent('')
-                    // setUserId('')
                     navigate('/dash')
                 } catch (err) {
                     console.error('Failed to save the post', err)
@@ -60,8 +45,7 @@ const NewLeave = () => {
 
     const content = (
         <>
-            {/* <p >{error?.data?.message}</p> */}
-
+            
             <form className="form" onSubmit={onSaveNoteClicked}>
                 <div className="form__title-row">
                     <h2>New Leave</h2>

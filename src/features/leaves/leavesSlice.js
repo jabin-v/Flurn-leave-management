@@ -36,9 +36,6 @@ export const fetchLeavesWithFilter = createAsyncThunk('leaves/fetchLeavesWithFil
 
 
     const response = await axios.get(`${BASE_URL}?start_date=gt.${startDate}&end_date=lt.${endDate}&select=*`,config);
-
-    console.log(response)
-
     return response.data
 
     
@@ -57,7 +54,6 @@ export const addNewLeave = createAsyncThunk('leaves/addNewLeave', async ({start_
 
      
     const response = await axios.post(BASE_URL,{start_date,end_date,reason},config)
-    console.log(response)
     // return response.data
 })
 
@@ -65,7 +61,7 @@ export const addNewLeave = createAsyncThunk('leaves/addNewLeave', async ({start_
 export const updateLeave = createAsyncThunk('leaves/updateLeave', async (initialPost,{ getState, rejectWithValue }) => {
     const { auth } = getState();
 
-    const { id,start_date,end_date } = initialPost;
+    const { id} = initialPost;
 
     
 

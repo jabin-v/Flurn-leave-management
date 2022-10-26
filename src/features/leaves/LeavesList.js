@@ -6,7 +6,7 @@ import DateRangePickerComp from "../../components/dateRangePicker/DateRangePicke
 import { addDays } from 'date-fns'
 import { Link } from "react-router-dom";
 const LeavesList = () => {
-  const dispatch = useDispatch();
+const dispatch = useDispatch();
 
 
   //before ceratain date
