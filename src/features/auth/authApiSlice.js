@@ -27,12 +27,6 @@ export const authApiSlice = apiSlice.injectEndpoints({
                 }
             }
         }),
-        refresh: builder.mutation({
-            query: () => ({
-                url: '/auth/v1/token?grant_type=refresh_token',
-                method: 'GET',
-            })
-        }),
     })
 })
 
