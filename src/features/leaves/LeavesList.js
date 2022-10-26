@@ -42,6 +42,8 @@ const dispatch = useDispatch();
 
   const leaves = useSelector(selectAllLeaves);
 
+ 
+
   const applyFilter=(filter)=>{
 
     if(filter==="6 month"){
@@ -83,7 +85,7 @@ const dispatch = useDispatch();
  
 
 
-  const tableContent = leaves?.map(leave => <Leave key={leave.id} leaveId={leave.id} data={leave} />)
+  const tableContent = leaves?.map(leave => <Leave key={Number(leave.id)} leaveId={leave.id} data={leave} />)
 
   let content = (
     <table className="table table--notes">

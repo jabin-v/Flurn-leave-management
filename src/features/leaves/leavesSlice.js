@@ -23,9 +23,6 @@ export const fetchLeavesWithFilter = createAsyncThunk('leaves/fetchLeavesWithFil
     const startDate=format(data[0].startDate,"yyyy-MM-dd");
     const endDate=format(data[0].endDate,"yyyy-MM-dd");
 
-
-    console.log(startDate)
-    console.log(endDate)
     const { auth } = getState();    
     const config = {
         headers: {
@@ -47,14 +44,17 @@ export const addNewLeave = createAsyncThunk('leaves/addNewLeave', async ({start_
     const { auth } = getState();
     const config = {
         headers: {
+          Prefer:"return=representation",
           Authorization: `Bearer ${auth.token}`,
-          apikey:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRrZ2ljZ2d1cG5yeGxkd3ZrZWZ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjYwMDI4ODMsImV4cCI6MTk4MTU3ODg4M30.BLLinQ9VEK8_T-JE22WOidlJs_0TFhOb1n3zkSVc7eg"
+          apikey:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRrZ2ljZ2d1cG5yeGxkd3ZrZWZ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjYwMDI4ODMsImV4cCI6MTk4MTU3ODg4M30.BLLinQ9VEK8_T-JE22WOidlJs_0TFhOb1n3zkSVc7eg",
+          
         },
       };
 
      
-    const response = await axios.post(BASE_URL,{start_date,end_date,reason},config)
-    // return response.data
+    const response = await axios.post(BASE_URL,{start_date,end_date,reason},config,)
+
+    return response.data
 })
 
 
@@ -69,6 +69,7 @@ export const updateLeave = createAsyncThunk('leaves/updateLeave', async (initial
 
     const config = {
         headers: {
+          Prefer:"return=representation",
           Authorization: `Bearer ${auth.token}`,
           apikey:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRrZ2ljZ2d1cG5yeGxkd3ZrZWZ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjYwMDI4ODMsImV4cCI6MTk4MTU3ODg4M30.BLLinQ9VEK8_T-JE22WOidlJs_0TFhOb1n3zkSVc7eg"
         },
@@ -77,8 +78,7 @@ export const updateLeave = createAsyncThunk('leaves/updateLeave', async (initial
     
     try {
         const response = await axios.patch(`${BASE_URL}?id=eq.${id}`,initialPost,config)
-        // return response.data
-        console.log(response)
+        return response.data
     } catch (err) {
         //return err.message;
         return initialPost; // only for testing Redux!
@@ -138,24 +138,24 @@ const leavesSlice = createSlice({
                 state.error = action.error.message
               })
 
-              // .addCase(addNewLeave.fulfilled, (state, action) => {
-              //   console.log(action.payload)
-              //   // state.data.push(action.payload)
+              .addCase(addNewLeave.fulfilled, (state, action) => {
+                state.data.push(action.payload[0])
 
-              // })
+              })
 
-            //   .addCase(updateLeave.fulfilled, (state, action) => {
+              .addCase(updateLeave.fulfilled, (state, action) => {
 
-            //     console.log(action.payload)
-            //     if (!action.payload?.id) {
-            //         console.log('Update could not complete')
-            //         console.log(action.payload)
-            //         return;
-            //     }
-            //     const { id } = action.payload;
-            //     const leaves = state.data.filter(leave => leave.id !== id);
-            //     state.data = [...leaves, action.payload];
-            // })
+                console.log(action.payload)
+                if (!action.payload[0]?.id) {
+                    console.log('Update could not complete')
+
+          
+                    return;
+                }
+                const { id } = action.payload[0];
+                const leaves = state.data.filter(leave => leave.id !==Number(id));
+                state.data = [...leaves, action.payload];
+            })
 
     }
    

@@ -1,10 +1,9 @@
-import { useState, useEffect } from "react"
-import { useNavigate, useParams } from "react-router-dom"
-// import { useAddNewNoteMutation } from "./notesApiSlice"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSave } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { addNewLeave, selectLeaveById, updateLeave } from "./leavesSlice"
+import { useNavigate, useParams } from "react-router-dom"
+import { selectLeaveById, updateLeave } from "./leavesSlice"
 
 const EditLeave = () => {
 
@@ -26,7 +25,7 @@ const EditLeave = () => {
     const onStartDateChanged = e =>setStartDate(e.target.value)
     const onEndDateChanged = e => setEndDate(e.target.value)
     const validStartDate = !startDate || new Date(startDate).getTime() <= new Date().getTime() ? "form__input--incomplete" : ''
-    const validEndDate = !endDate || new Date(endDate).getTime() <= new Date().getTime() ||new Date(endDate).getTime() < new Date(startDate).getTime() ? "form__input--incomplete" : ''
+    const validEndDate = !endDate || new Date(endDate).getTime() <= new Date().getTime() ||new Date(endDate).getTime() <= new Date(startDate).getTime() ? "form__input--incomplete" : ''
 
     const canSave = [startDate, endDate,!validEndDate,!validStartDate].every(Boolean) && addRequestStatus === 'idle' 
 

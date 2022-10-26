@@ -20,7 +20,7 @@ const NewLeave = () => {
     const onEndDateChanged = e => setEndDate(e.target.value)
     const onTextChanged = e => setReason(e.target.value)
     const validStartDate = !startDate ? "form__input--incomplete" : ''
-    const validEndDate = !endDate ||new Date(endDate).getTime() < new Date(startDate).getTime() ? "form__input--incomplete" : ''
+    const validEndDate = !endDate ||new Date(endDate).getTime() <= new Date(startDate).getTime() ? "form__input--incomplete" : ''
 
     const canSave = [startDate, endDate,!validEndDate,!validStartDate].every(Boolean) && addRequestStatus === 'idle' 
 
