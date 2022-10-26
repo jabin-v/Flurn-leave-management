@@ -12,6 +12,8 @@ import { fetchLeaves } from './features/leaves/leavesSlice';
 import { store } from './app/store';
 import NewLeave from './features/leaves/NewLeave';
 import EditLeave from './features/leaves/EditLeave';
+import { Calendar } from 'react-date-range';
+import Calender from './components/calender/Calender';
 
 function App() {
 
@@ -24,6 +26,7 @@ function App() {
 
         <Route path="dash" element={<DashLayout />}>
           <Route index element={<LeavesList/>}/>
+          <Route path='visualize' element={<Calender/>}/>
           <Route path='leave/new' element={<NewLeave/>}/>
           <Route path='leave/:leaveId' element={<EditLeave/>}/>
 

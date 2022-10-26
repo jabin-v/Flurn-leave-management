@@ -108,7 +108,7 @@ const leavesSlice = createSlice({
 
                 const loadedPosts = action.payload.sort(function(a, b) {
                     var c = new Date(a.end_date);
-                    var d = new Date();
+                    var d = new Date(b.start_date);
                     return d-c;
                 });
 

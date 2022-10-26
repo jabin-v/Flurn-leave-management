@@ -42,7 +42,7 @@ const days=getDaysDiffBetweenDates(new Date(data.start_date), new Date(data.end_
                 <td className="table__cell note__created">{data.start_date}</td>
                 <td className="table__cell note__updated">{data.end_date}</td>
                 <td className="table__cell note__title">{data.reason ? data.reason : "No reason Provided"}</td>
-                <td className="table__cell note__username">{days+1}</td>
+                <td className="table__cell note__username">{days}</td>
 
                 <td className="table__cell">
                     

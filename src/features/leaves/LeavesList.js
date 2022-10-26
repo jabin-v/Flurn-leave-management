@@ -117,6 +117,7 @@ return (
     <span className="btn-filter" onClick={()=>applyFilter("1 year")}>Last 1 Year</span>
     <span className="btn-filter green" onClick={()=>applyFilter("reset")}>Reset</span>
     <Link to="/dash/leave/new" className="btn-filter green" onClick={()=>applyFilter("reset")}>Apply for a new Leave</Link>
+    <Link to="/dash/visualize" className="btn-filter green" onClick={()=>applyFilter("reset")}>Show leaves in calender</Link>
     
 
 
