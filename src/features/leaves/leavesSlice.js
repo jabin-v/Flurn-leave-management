@@ -154,7 +154,15 @@ const leavesSlice = createSlice({
                 }
                 const { id } = action.payload[0];
                 const leaves = state.data.filter(leave => leave.id !==Number(id));
-                state.data = [...leaves, action.payload];
+
+                const data = [...leaves, action.payload];
+
+                const loadedPosts = data.sort(function(a, b) {
+                  var c = new Date(a.end_date);
+                  var d = new Date();
+                  return d-c;
+              });
+              state.data = loadedPosts;
             })
 
     }
